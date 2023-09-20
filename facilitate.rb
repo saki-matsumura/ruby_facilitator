@@ -58,7 +58,11 @@ def facilitator(members)
   # 欠席者の有無に応じて順番を入れ替える
 
   # 欠席者の人数分繰り返す
-  if (absentee.length) != 0
+  if  (absentee.length) == 5
+
+    "本日は全員お休みです。"
+    
+  elsif (absentee.length) != 0
     
     i = 1
 
@@ -75,9 +79,11 @@ def facilitator(members)
     puts "▼ - 入替確認 - - - - -"
     p members
 
+    "本日のファシリテーターは#{members[0]}さんです。"
+
   end
 
-  "本日のファシリテーターは#{members[0]}さんです。"
+  
 
 end
 
