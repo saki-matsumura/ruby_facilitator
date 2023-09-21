@@ -22,7 +22,6 @@ def facilitator(members)
   puts "本日の欠席者を数字で入力してください"
   puts "0.逢見さん  1.近江さん  2.橋本さん  3.原さん  4.松村さん  5.終了"
   numbers = []
-  numbers = []
     j = 0
     ((members.length)+1).times do
       numbers << "#{j}"
