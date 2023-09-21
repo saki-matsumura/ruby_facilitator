@@ -12,25 +12,30 @@
 
 # ————————————————————————————————————————
 
-# メソッド化する
+# ファシリテーターを決めるメゾット
 def facilitator(members)
 
 # — — — — — — — — — — — — — — — — — — — — —
-
   # 欠席者の登録
   absentee = []
-
   # 終了が押されるまで繰り返す
   puts "本日の欠席者を数字で入力してください"
   puts "0.逢見さん  1.近江さん  2.橋本さん  3.原さん  4.松村さん  5.終了"
-  a = ["0", "1", "2", "3", "4", "5"]
+  numbers = []
+  numbers = []
+    j = 0
+    ((members.length)+1).times do
+      numbers << "#{j}"
+      j += 1
+    end
+  # p members
+  # p numbers
 
   while true
     # puts "——————————"
     # puts "number#{number}"
     input_number = gets.chomp
-    
-    if a.include?(input_number)
+    if numbers.include?(input_number)
         number = input_number.to_i
       if number == 5
         # 5が入力されたら処理を終える
@@ -46,9 +51,7 @@ def facilitator(members)
       puts "0.逢見さん  1.近江さん  2.橋本さん  3.原さん  4.松村さん  5.終了"
       input_number = gets.chomp
     end
-
   end
-
   # 重複削除
   absentee = absentee.uniq
   puts "▼ - 欠席者 - - - - -"
@@ -56,16 +59,11 @@ def facilitator(members)
 
   # — — — — — — — — — — — — — — — — — — — — —
   # 欠席者の有無に応じて順番を入れ替える
-
   # 欠席者の人数分繰り返す
-  if  (absentee.length) == 5
+  today_facilitator = "本日は全員お休みです。" if  (absentee.length) == 5
 
-    "本日は全員お休みです。"
-    
-  elsif (absentee.length) != 0
-    
+  if (absentee.length) != 0 && (absentee.length) != 5
     i = 1
-
     absentee.each do | absentee_member |
       # 先頭と欠席者が一致していたら入れ替える
       if members[0] == absentee_member
@@ -73,22 +71,41 @@ def facilitator(members)
         members[0],members[i] = members[i],members[0]
         i += 1
       end
-
     end
-
     puts "▼ - 入替確認 - - - - -"
-    p members
-
-    "本日のファシリテーターは#{members[0]}さんです。"
-
+  p members
+  today_facilitator = "本日のファシリテーターは#{members[0]}さんです。"
   end
-
-  
-
+  # 本日のファシリテーターを返す
+  today_facilitator
 end
+
+# — — — — — — — — — — — — — — — — — — — — —
 
 # メンバーの登録
 # 【メモ】できればデータベースに保存したものを取得したい
 members = ["逢見", "近江", "橋本", "原", "松村"]
-
 puts facilitator(members)
+
+# — — — — — — — — — — — — — — — — — — — — —
+# 以下、csvと格闘した跡（途中）です。
+
+# puts members()
+# i = 0
+# require 'csv'
+# File.write("members.csv", << members[0])
+# table = CSV.read("members.csv", headers: true)
+# p table.class # => CSV::Table
+# p table[0]
+# table = CSV.read("members.csv")
+# p table
+# test_m = []
+
+# i = 0
+# 5.times do
+# test_m << table[i].splint('[',']')
+# i += 1
+# end
+# p test_m
+
+# — — — — — — — — — — — — — — — — — — — — —
