@@ -27,22 +27,14 @@ def facilitator(members)
       numbers << "#{j}"
       j += 1
     end
-  p members
-  # p numbers
 
   while true
-    puts "——————————"
-    # puts "number#{number}"
     input_number = gets.chomp
     if numbers.include?(input_number)
         number = input_number.to_i
       if number == 5
-        # 5が入力されたら処理を終える
-        # puts "5が入力された"
         break
       else
-        # 欠席者を登録する
-        # puts "5以外"
         absentee << members[number]
       end
     else
@@ -53,8 +45,6 @@ def facilitator(members)
   end
   # 重複削除
   absentee = absentee.uniq
-  puts "▼ - 欠席者 - - - - -"
-  p absentee
 
   # — — — — — — — — — — — — — — — — — — — — —
   # 欠席者の有無に応じて順番を入れ替える
@@ -71,8 +61,7 @@ def facilitator(members)
         i += 1
       end
     end
-    puts "▼ - 入替確認 - - - - -"
-    p members
+    # 本日のファシリテーターを出力
     today_facilitator = "本日のファシリテーターは#{members[0]}さんです。"
   end
 
