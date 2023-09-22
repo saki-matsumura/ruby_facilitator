@@ -27,11 +27,11 @@ def facilitator(members)
       numbers << "#{j}"
       j += 1
     end
-  # p members
+  p members
   # p numbers
 
   while true
-    # puts "——————————"
+    puts "——————————"
     # puts "number#{number}"
     input_number = gets.chomp
     if numbers.include?(input_number)
@@ -59,7 +59,7 @@ def facilitator(members)
   # — — — — — — — — — — — — — — — — — — — — —
   # 欠席者の有無に応じて順番を入れ替える
   # 欠席者の人数分繰り返す
-  today_facilitator = "本日は全員お休みです。" if  (absentee.length) == 5
+  return today_facilitator = "本日は全員お休みです。" if  (absentee.length) == 5
 
   if (absentee.length) != 0 && (absentee.length) != 5
     i = 1
@@ -72,39 +72,35 @@ def facilitator(members)
       end
     end
     puts "▼ - 入替確認 - - - - -"
-  p members
-  today_facilitator = "本日のファシリテーターは#{members[0]}さんです。"
+    p members
+    today_facilitator = "本日のファシリテーターは#{members[0]}さんです。"
   end
+
+  # 配変更した配列をCSVに保存する（途中）
+  # 問題点：1行目から更新してしまうため、2回目からハッシュが機能しなくなってしまう。
+  # require 'csv'
+  # File.open("members.csv", "w") do |f|
+  #   members.each { |s| f.puts(s) }
+  # end
+
   # 本日のファシリテーターを返す
   today_facilitator
 end
 
 # — — — — — — — — — — — — — — — — — — — — —
 
-# メンバーの登録
-# 【メモ】できればデータベースに保存したものを取得したい
-members = ["逢見", "近江", "橋本", "原", "松村"]
-puts facilitator(members)
+# CSVに保存された名簿から、メンバーの名前を取得して配列化する
+require 'csv'
+members_table = CSV.table('members.csv')
+
+# CSVからメンバーリストを作成する
+member_list = []
+# member_listに名前を代入
+members_table.each do | member_name |
+  member_list << member_name[:name]
+end
 
 # — — — — — — — — — — — — — — — — — — — — —
-# 以下、csvと格闘した跡（途中）です。
 
-# puts members()
-# i = 0
-# require 'csv'
-# File.write("members.csv", << members[0])
-# table = CSV.read("members.csv", headers: true)
-# p table.class # => CSV::Table
-# p table[0]
-# table = CSV.read("members.csv")
-# p table
-# test_m = []
-
-# i = 0
-# 5.times do
-# test_m << table[i].splint('[',']')
-# i += 1
-# end
-# p test_m
-
-# — — — — — — — — — — — — — — — — — — — — —
+# メンバーリストを引数に設定し、ファシリテーターを決めるメソッドを呼び出す
+puts facilitator(member_list)
